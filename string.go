@@ -81,6 +81,13 @@ func (s *String) UnmarshalText(text []byte) error {
 	return nil
 }
 
+func (s *String) MarshalText() ([]byte, error) {
+	if !s.Valid {
+		return []byte{}, nil
+	}
+	return []byte(s.String), nil
+}
+
 // SetValid changes this String's value and also sets it to be non-null.
 func (s *String) SetValid(v string) {
 	s.String = v
