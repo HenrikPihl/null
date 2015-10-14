@@ -14,6 +14,7 @@ var (
 	timeObject   = []byte(`{"Time":"2012-12-21T21:21:21Z","Valid":true}`)
 	nullObject   = []byte(`{"Time":"0001-01-01T00:00:00Z","Valid":false}`)
 	badObject    = []byte(`{"hello": "world"}`)
+	nullTimeText = []byte(``)
 )
 
 func TestUnmarshalTimeJSON(t *testing.T) {
@@ -76,7 +77,7 @@ func TestUnmarshalTimeText(t *testing.T) {
 	assertNullTime(t, null, "unmarshal null text")
 	txt, err = null.MarshalText()
 	maybePanic(err)
-	assertJSONEquals(t, txt, string(nullJSON), "marshal null text")
+	assertJSONEquals(t, txt, string(nullTimeText), "marshal null text")
 
 	var invalid Time
 	err = invalid.UnmarshalText([]byte("hello world"))
